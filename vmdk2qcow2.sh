@@ -2,7 +2,9 @@
 #this script coverts ova and vmdk files to qcow2 disk images 
 #Author: Khalu
 
-echo "Useage: ./vmdk2qcow2.sh /home/user/Virtual Machines/Target.ova /optional/output/directory"
+echo "Useage:"
+echo "./vmdk2qcow2.sh /home/user/Virtual Machines/Target.ova /optional/output/directory"
+
 remove_flag=0
 
 function extract_file {
@@ -66,6 +68,7 @@ fi
 dir_name=$(dirname "$file")
 file_w_extension=$(basename "$file")
 
+#checks for an argument for the output directory, if none, sets the current directory
 if [ "$2" != "" ]; then
     output_dir=$2
 else
@@ -94,10 +97,11 @@ else
     exit 1
 fi
 
-
+#adds a trailing slash on the output dir if none
 if [[ "${output_dir: -1 }" != "/" ]]; then 
     output_dir="$output_dir/"
 fi
+
 
 echo "converting $file to $output_dir$file_name.qcow2"
 qemu-img convert -O qcow2 "$vmdk_file" "$output_dir$file_name.qcow2"
