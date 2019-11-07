@@ -2,16 +2,17 @@
 #this script coverts ova and vmdk files to qcow2 disk images 
 #Author: Khalu
 
-echo "Useage: ./vmdk2qcow2.sh /home/user/Virtual Machines/Target.ova"
+echo "Useage: ./vmdk2qcow2.sh /home/user/Virtual Machines/Target.ova /optional/output/directory"
 remove_flag=0
+
 function extract_file {
     #extracts the file passed in $1 to the directory passed in $2
     #also sets the remove_flag var for removal after convervsion
     echo "extracting to /tmp/$2"
 	mkdir /tmp/"$2"
 	tar xf "$1" --directory /tmp/"$2"
-	$remove_flag=1
-}
+	remove_flag=1
+	}
 
 function find_vmdk_file {
         #attempts to find the VMDK file to convert
@@ -59,9 +60,17 @@ else
 	read file
 fi
 
+
+
 #seperates the directory and filename for ease of use
 dir_name=$(dirname "$file")
 file_w_extension=$(basename "$file")
+
+if [ "$2" != "" ]; then
+    output_dir=$2
+else
+    output_dir=$dir_name
+fi
 
 #checks if the passed object is a file or directory 
 result="$(file "$file")"
@@ -70,16 +79,15 @@ then
 	echo "No file or directory found"
 	exit 1
 elif [[ $result == *"directory"* ]]
-then
-	#mkdir $file 
+then 
 	echo "directory entered, searching for VMDK"
 	find_vmdk_file "$dir_name/$file_w_extension"
 	file_name=$file_w_extension
-elif [[ "${file_w_extension#*.}" == "ova" ]]
+#checks the last 3 characters for ova
+elif [[ "${file_w_extension: -3}" == "ova" ]]
 then
     remove_extension "$file_w_extension"
 	extract_file "$file" "$file_name"
-	#vmdk_file=$(find_vmdk_file "/tmp/$file_name")
 	find_vmdk_file "/tmp/$file_name"
 else
     echo "No suitable file found"
@@ -87,10 +95,13 @@ else
 fi
 
 
+if [[ "${output_dir: -1 }" != "/" ]]; then 
+    output_dir="$output_dir/"
+fi
 
-echo "converting $file to $dir_name/$file_name.qcow2"
-qemu-img convert -O qcow2 "$vmdk_file" "$dir_name/$file_name.qcow2"
-if [ $remove_flag == 1 ];
+echo "converting $file to $output_dir$file_name.qcow2"
+qemu-img convert -O qcow2 "$vmdk_file" "$output_dir$file_name.qcow2"
+if [[ $remove_flag == "1" ]];
 then
     echo "removing temp directory"
     rm -rf "/tmp/$file_name"
