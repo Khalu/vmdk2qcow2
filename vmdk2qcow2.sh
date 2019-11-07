@@ -1,5 +1,6 @@
 #!/bin/bash
 #this script coverts ova and vmdk files to qcow2 disk images 
+#Author: Khalu
 
 echo "Useage: ./vmdk2qcow2.sh /home/user/Virtual Machines/Target.ova"
 remove_flag=0
