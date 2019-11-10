@@ -15,6 +15,9 @@ Summary:
 Converts VMDK files using qemu-img to qcow2 format and places in the current directory. If an OVA file is specified it the script will extract the files to the /tmp/ directory, convert the disk image into the current directory, and delete the /temp/. 
 
 TODO:
+
 Add named arugments
+
 Import to qemu automatically 
+
 Other hypervisor support(?)
