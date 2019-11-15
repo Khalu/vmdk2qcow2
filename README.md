@@ -21,3 +21,7 @@ Add named arugments
 Import to qemu automatically 
 
 Other hypervisor support(?)
+
+
+
+[Link to Blog Post](https://n00bsecurityblog.wordpress.com/2019/11/10/how-to-convert-vmware-and-virtualbox-vm-files-to-qemu-kvm/)
