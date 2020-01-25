@@ -1,14 +1,26 @@
 # vmdk2qcow2
-convert VMWare (vmdk) and VirtualBox (.ova) VM files to QEMU-KVM VM disk files (.qcow2)
+Bash script to convert VMWare (vmdk) and VirtualBox (.ova) VM files to QEMU-KVM VM disk files (.qcow2)
 
 Download:
 ```
     wget  https://raw.githubusercontent.com/Khalu/vmdk2qcow2/master/vmdk2qcow2.sh
 ```
+or 
+```
+    git clone https://github.com/Khalu/vmdk2qcow2
+```
+
 Useage: 
 ```
-./vmdk2qcow2.sh /filepath/to/ova/file/or/VMWare/directory
+chmod +x ./vmdk2qcow2.sh
+./vmdk2qcow2.sh /filepath/to/ova/file/or/VMWare/directory /filepath/to/output/directory
 ```
+or 
+```
+./vmdk2qcow2.sh
+```
+And wait to be prompted.
+
 Created for ease of creating qcow2 disks for qemu-kvm hypervisor from VirtualBox and VMWare Player disk files.
 
 Summary:
