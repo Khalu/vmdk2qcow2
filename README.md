@@ -30,6 +30,11 @@ Dependencies:
 qemu-img
 
 
+Issues:
+
+The script does not currently account for multiple disks. If a VM has multiple virtual disks it may fail to boot. 
+
+
 TODO:
 
 Add named arugments
