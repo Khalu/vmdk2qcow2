@@ -107,7 +107,7 @@ echo "converting $file to $output_dir$file_name.qcow2"
 {
 qemu-img convert -O qcow2 "$vmdk_file" "$output_dir$file_name.qcow2"
 } || {
-echo "Disk convery failed, please ensure qemu-img is latest version and sufficient disk space"
+echo "Disk convert failed, please ensure qemu-img is latest version and sufficient disk space"
 }
 if [[ $remove_flag == "1" ]];
 then
