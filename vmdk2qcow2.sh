@@ -14,11 +14,16 @@ function extract_file {
 	mkdir /tmp/"$2"
 	tar xf "$1" --directory /tmp/"$2"
 	remove_flag=1
+	gz_file=$(find "/tmp/$2" -name "*.gz" 2> /dev/null)
+  	if [ $(echo "$gz_file" | wc -l )  -eq 1 ];
+  	then
+ 	  gunzip -c $gz_file > /tmp/"$2"/"$2".vmdk
+  	fi
 	}
 
 function find_vmdk_file {
         #attempts to find the VMDK file to convert
-        find_file=$(find "$1" -name *.vmdk 2> /dev/null)
+        find_file=$(find "$1" -name "*.vmdk" 2> /dev/null)
         #if only one result then it is likely the correct file
         if [ $(echo "$find_file" | wc -l) -eq 1 ];
         then
